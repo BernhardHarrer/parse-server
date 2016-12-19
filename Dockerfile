@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FROM node:latest
 
 RUN mkdir parse
@@ -24,3 +25,26 @@ EXPOSE 1337
 # VOLUME /parse/cloud               
 
 CMD [ "npm", "start" ]
+=======
+FROM node:boron
+
+RUN mkdir -p /parse-server
+COPY ./ /parse-server/
+
+RUN mkdir -p /parse-server/config
+VOLUME /parse-server/config
+
+RUN mkdir -p /parse-server/cloud
+VOLUME /parse-server/cloud
+
+WORKDIR /parse-server
+
+RUN npm install && \
+    npm run build
+
+ENV PORT=1337
+
+EXPOSE $PORT
+
+ENTRYPOINT ["npm", "start", "--"]
+>>>>>>> f4734a65c0621b24bf0ed6ad7ce490f2e45bed22
